@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import './styles.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_URL = "https://inventory-order-management-system-1-nh1b.onrender.com";
 
 const emptyProduct = { name: '', sku: '', price: '', quantity_in_stock: '' };
 const emptyCustomer = { full_name: '', email: '', phone_number: '' };
