@@ -50,22 +50,48 @@ class Order(Base):
     )
 
 
+# class OrderItem(Base):
+#     __tablename__ = "order_items"
+#     __table_args__ = (UniqueConstraint("order_id", "product_id", name="uq_order_product"),)
+
+#     id: Mapped[int] = mapped_column(primary_key=True, index=True)
+#     order_id: Mapped[int] = mapped_column(ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
+# product_id: Mapped[Optional[int]] = mapped_column(
+#     ForeignKey("products.id", ondelete="SET NULL"),
+#     nullable=True
+# )    product_name: Mapped[str] = mapped_column(String(160), nullable=False)
+#     product_sku: Mapped[str] = mapped_column(String(80), nullable=False)
+#     quantity: Mapped[int] = mapped_column(Integer, nullable=False)
+#     unit_price: Mapped[Decimal] = mapped_column(Numeric(12, 2), nullable=False)
+#     line_total: Mapped[Decimal] = mapped_column(Numeric(12, 2), nullable=False)
+
+#     order: Mapped[Order] = relationship(back_populates="items")
+# product: Mapped[Optional["Product"]] = relationship(
+#     back_populates="order_items"
+# )
+
 class OrderItem(Base):
     __tablename__ = "order_items"
     __table_args__ = (UniqueConstraint("order_id", "product_id", name="uq_order_product"),)
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    order_id: Mapped[int] = mapped_column(ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
-product_id: Mapped[Optional[int]] = mapped_column(
-    ForeignKey("products.id", ondelete="SET NULL"),
-    nullable=True
-)    product_name: Mapped[str] = mapped_column(String(160), nullable=False)
+    order_id: Mapped[int] = mapped_column(
+        ForeignKey("orders.id", ondelete="CASCADE"),
+        nullable=False
+    )
+
+    product_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("products.id", ondelete="SET NULL"),
+        nullable=True
+    )
+
+    product_name: Mapped[str] = mapped_column(String(160), nullable=False)
     product_sku: Mapped[str] = mapped_column(String(80), nullable=False)
     quantity: Mapped[int] = mapped_column(Integer, nullable=False)
     unit_price: Mapped[Decimal] = mapped_column(Numeric(12, 2), nullable=False)
     line_total: Mapped[Decimal] = mapped_column(Numeric(12, 2), nullable=False)
 
-    order: Mapped[Order] = relationship(back_populates="items")
-product: Mapped[Optional["Product"]] = relationship(
-    back_populates="order_items"
-)
+    order: Mapped["Order"] = relationship(back_populates="items")
+    product: Mapped[Optional["Product"]] = relationship(
+        back_populates="order_items"
+    )
