@@ -5,7 +5,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://inventory:inventory@db:5432/inventory_db"
-    cors_origins: str = "http://localhost:5173,http://localhost:8080"
+    cors_origins: str = "https://darling-sprite-809213.netlify.app"
+
     low_stock_threshold: int = 5
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
